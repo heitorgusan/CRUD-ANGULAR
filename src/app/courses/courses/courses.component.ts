@@ -1,5 +1,8 @@
+import { CoursesService } from './../services/courses.service';
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../model/course';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses',
@@ -8,18 +11,20 @@ import { Course } from '../model/course';
 })
 export class CoursesComponent implements OnInit {
 
-  dataCourses: Course[] = [
-    {_id:"1", name:"Jardinagem", category:"Natureza"},
-    {_id:"2", name:"Arborização", category:"Natureza"},
-    {_id:"3", name:"Pintura", category:"Obras"},
-    {_id:"4", name:"Churrasqueiro", category:"Alimentação"}
-  ];
+  dataCourses$: Observable<Course[]>;
 
   displayedColumns = ['name', 'category'];
 
-  constructor() { }
+  constructor(private courseService: CoursesService) {
+    //.pipe() literalmente um cano q a informação passa (quando chega) e vc pode manipular, vem do rxjs https://rxjs.dev/api
+    this.dataCourses$ = this.courseService.dataCourse().pipe(
+      //tap(courses => console.log(courses))
+    );
+
+  }
 
   ngOnInit(): void {
+
   }
 
 }
