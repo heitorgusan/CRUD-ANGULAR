@@ -5,6 +5,7 @@ import { Course } from '../model/course';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -15,9 +16,9 @@ export class CoursesComponent implements OnInit {
 
   dataCourses$: Observable<Course[]>;
 
-  displayedColumns = ['name', 'category'];
+  displayedColumns = ['name', 'category','actions'];
 
-  constructor(private courseService: CoursesService,public dialog: MatDialog) {
+  constructor(private courseService: CoursesService,public dialog: MatDialog,private router: Router, private route: ActivatedRoute) {
     //.pipe() literalmente um cano q a informação passa (quando chega) e vc pode manipular, vem do rxjs https://rxjs.dev/api
     this.dataCourses$ = this.courseService.dataCourse().pipe(
       catchError(error => {
@@ -35,6 +36,9 @@ export class CoursesComponent implements OnInit {
     this.dialog.open(ErrorDialogComponent, {
       data: errorMsg
     });
+  }
+  onAdd(){
+    this.router.navigate(['new'],{relativeTo:this.route});
   }
   ngOnInit(): void {
 

@@ -19,5 +19,7 @@ export class CoursesService {
       delay(2000)
     );
   }
-
+  save(record: Course) {
+    return this.httpClient.post<Course>(this.API,record);
+  }
 }

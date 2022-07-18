@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Formulário</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <form [formGroup]="form" class="full-width">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Nome" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Select an option</mat-label>
+        <mat-select formControlName="category">
+          <mat-option value="null"></mat-option>
+          <mat-option value="natureza">Natureza</mat-option>
+          <mat-option value="obras">Obras</mat-option>
+          <mat-option value="alimentacao">Alimentação</mat-option>
+          <mat-option value="outras">Outras</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onSubmit()">Salvar</button>
+        <button mat-raised-button (click)="onCancel()">Cancelar</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>
